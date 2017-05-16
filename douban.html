@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.box{
+				width: 900px;
+				margin: 0 auto;
+			}
+			.box1{
+				width: 250px;
+				height: 400px;
+				border: 1px solid aquamarine;
+				padding: 10px;
+				margin-left: 50px;
+				float: left;
+			}
+			.box1{
+				width: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="box">
+			<div class="box1">
+				
+			</div>
+		</div>
+		
+		<script src="jquery.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			$.ajax({
+				
+				url:"https://api.douban.com/v2/movie/in_theaters?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&start=0&count=100&client=&udid=",
+				type:"get",
+				dataType:"jsonp",
+				success:function(data){
+					$.each(data.subjects, function(i) {
+   					 console.log(data.subjects[i].casts[0].avatars.medium)		
+					 var str = "<div class='box1'>"+"<img src="+ data.subjects[i].casts[0].avatars.medium+"/>"+"</br>"
+					 +"<a>"+data.subjects[i].title+"</a>"+ "</div>";
+					 $(".box").append(str);
+					 
+				
+					 $("a").eq(i).attr("href",data.subjects[i].alt)
+
+                  
+					});
+                   
+//					console.log(data.subjects)
+				}
+			});
+		</script>
+	</body>
+</html>
